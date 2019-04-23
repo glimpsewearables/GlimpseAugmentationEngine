@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Glimpse Engine</title>
+    {% load static from staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+    <script src="{% static 'js/main.js'%}"></script>
+</head>
+<body>
+    {% load static %}
+    <header>
+        <h1>Glimpse Augmentation Engine (GAE)</h1>
+    </header>
+    <main>
+        <div id="infoArea">
+            <h1>Testing Area For GAE</h1>
+            <p>This is where we will be uploading files to test the video editing functions that we are working on</p>
+            <p>The Engine will be responsible for grabbing all outgoing content for the devices, editing it and updating metadata associated with the content.</p>
+        </div>
+        <form method="POST" enctype="multipart/form-data" action="/uploadFile">
+            {% csrf_token %}
+            <select name="fileChosen">
+                <option value="fileOne">File One Edit</option>
+                <option value="fileTwo">File Two Edit</option>
+                <option value="fileThree">File Three Edit</option>
+                <option value="fileFour">File Four Edit</option>
+                <option value="fileFive">File Five Edit</option>
+            </select>
+            <input type="file" name="myfile">
+            <button type="submit">Upload</button>
+        </form>
+    </main>
+    <footer>
+
+    </footer>
+</body>
+</html>
