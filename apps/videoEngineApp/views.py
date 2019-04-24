@@ -6,14 +6,9 @@ import sys, os, base64, datetime, hashlib, hmac, pytz, json, urllib, requests
 from django.db import models
 from os import listdir
 
-from .VideoEditing import Giffing, MetaData, VideoIndexing, VideoEditor, VideoStabilizer
-
-desktop = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop') 
+from . import Giffing, MetaData, VideoIndexing, VideoEditor, VideoStabilizer
 
 def index(request):
-    filePath = desktop + "/Photos/Glimpse/"
-    files = os.listdir(filePath)
-    print(files)
     return render(request, "index.html")
     # return HttpResponse(filePath)
 
