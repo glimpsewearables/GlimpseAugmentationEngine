@@ -5,7 +5,7 @@ from django.shortcuts import render, HttpResponse, redirect
 import sys, os, datetime, json, urllib, requests
 from django.db import models
 from os import listdir
-from .VideoEditing import Giffing, MetaData, VideoIndexing, VideoEditor, VideoStabilizer
+from . import Giffing, MetaData, VideoIndexing, VideoEditor, VideoStabilizer
 
 desktop = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop') 
 cwd = os.getcwd()
