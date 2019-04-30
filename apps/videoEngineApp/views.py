@@ -2,24 +2,31 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, HttpResponse, redirect
-import sys, os, base64, datetime, hashlib, hmac, pytz, json, urllib, requests
+import sys, os, datetime, json, urllib, requests
 from django.db import models
 from os import listdir
-
 from .VideoEditing import Giffing, MetaData, VideoIndexing, VideoEditor, VideoStabilizer
 
 desktop = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop') 
+cwd = os.getcwd()
+filePathDownload = desktop + "/Videos/Downloaded"
+filePathUpload = desktop + "/Videos/Edited"
+serverFileDownload = cwd + "/uploadedVideos/pre"
+serverFileUpload = cwd + "/uploadedVideos/post"
+rawFiles = os.listdir(filePathDownload)
+editedFiles = os.listdir(filePathUpload)
 
 def index(request):
-    filePath = desktop + "/Photos/Glimpse/"
-    files = os.listdir(filePath)
-    print(files)
     return render(request, "index.html")
     # return HttpResponse(filePath)
 
 def uploadFile(request):
     if request.POST:
         editType = request.POST["fileChosen"]
+        videoURL = "https://s3-us-west-2.amazonaws.com/users-raw-content/user3_video_2019-04-12_19.17.36.mp4"
+        videoName = videoURL.split("https://s3-us-west-2.amazonaws.com/users-raw-content/")
+        # urllib.request.urlretrieve(videoURL, serverFileDownload + "/" + videoName[1])
+        urllib.request.urlretrieve(videoURL, filePathDownload + "/" + videoName[1])
         if editType == "fileOne":
             scriptOne("image file chosen")
         elif editType == "fileTwo":
@@ -30,9 +37,6 @@ def uploadFile(request):
             scriptFour("image file chosen")
         elif editType == "fileFive":
             scriptFive("image file chosen")
-        # fileUploaded = request.POST["myfile"]
-        # print(fileUploaded)
-    print("Uploaded file")
     return redirect("/")
 
 def testing(request):
@@ -43,6 +47,7 @@ def scriptOne(filePassed):
     # This will be the giffing script
     newFileAfterEdit = "new file after edits"
     scriptOneFromGiffing = Giffing.Giffing("Video Passed to Giffing")
+
     return newFileAfterEdit
 
 def scriptTwo(filePassed):
